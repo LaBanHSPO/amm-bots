@@ -104,7 +104,8 @@ func (b *ConstProductBot) createOrder(ladder ConstProductLadder, side string) {
 		0,
 	)
 	if err != nil {
-		logrus.Warn("create order failed ", err)
+		logrus.Warn("create order failed, cancel orders ", err)
+		_, _ = b.client.CancelAllPendingOrders()
 	} else {
 		b.ladderMap[orderId] = ladder
 	}
